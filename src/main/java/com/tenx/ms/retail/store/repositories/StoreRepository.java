@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface StoreRepository extends CrudRepository<StoreEntity, Long > {
-    Optional<StoreEntity> findOneByStoreId(final Long listingId);
+    Optional<StoreEntity> findOneByStoreId(final Long storeId);
 
     Page<StoreEntity> findAll(Pageable pageable);
 }
