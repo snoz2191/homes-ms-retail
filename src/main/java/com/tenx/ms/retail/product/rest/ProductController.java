@@ -2,7 +2,6 @@ package com.tenx.ms.retail.product.rest;
 
 import com.tenx.ms.commons.rest.RestConstants;
 import com.tenx.ms.commons.rest.dto.ResourceCreated;
-import com.tenx.ms.retail.exceptions.UpdateViolationException;
 import com.tenx.ms.retail.product.rest.dto.Product;
 import com.tenx.ms.retail.product.services.ProductService;
 import io.swagger.annotations.Api;
@@ -16,19 +15,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 @Api(value = "products", description = "Retail API that contains product related endpoints")
@@ -51,7 +44,7 @@ public class ProductController {
             @ApiParam(name = "storeId", value = "The store id for which the product will be created", required = true) @PathVariable long storeId,
             @ApiParam(name = "product", value = "The product entity", required = true) @Validated @RequestBody Product product) {
         LOGGER.debug("Creating product {}", product);
-
+        product.setStoreId(storeId);
         return new ResourceCreated<>(productService.createProduct(product));
     }
 
@@ -86,12 +79,5 @@ public class ProductController {
         LOGGER.debug("Fetching all product from store {}", storeId);
 
         return productService.getAllProducts(storeId, pageable);
-    }
-
-    @ResponseStatus(value = HttpStatus.PRECONDITION_FAILED)
-    @ExceptionHandler(UpdateViolationException.class)
-    protected void handleUpdateViolationException(UpdateViolationException ex,
-                                                  HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.sendError(HttpStatus.PRECONDITION_FAILED.value(), ex.getMessage());
     }
 }

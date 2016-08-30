@@ -16,7 +16,6 @@ public class Product {
     private Long productId;
 
     @ApiModelProperty(value = "The store ID for which the product belongs", readOnly = true)
-    @NotNull
     private Long storeId;
 
     @ApiModelProperty(value = "The product name", required = true)

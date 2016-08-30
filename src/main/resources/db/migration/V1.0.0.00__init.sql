@@ -17,3 +17,13 @@ CREATE TABLE product (
 )
     ENGINE = InnoDB
     AUTO_INCREMENT = 1;
+
+CREATE TABLE stock (
+    stock_id   BIGINT  NOT NULL AUTO_INCREMENT,
+    product_id BIGINT NOT NULL,
+    stock_count BIGINT NOT NULL,
+    PRIMARY KEY (stock_id),
+    FOREIGN KEY (product_id) REFERENCES product(product_id)
+)
+    ENGINE = InnoDB
+    AUTO_INCREMENT = 1;
