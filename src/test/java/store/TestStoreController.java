@@ -79,7 +79,7 @@ public class TestStoreController extends AbstractIntegrationTest {
 
     @Test
     @FlywayTest
-    public void getStoreByIdNotFound() {
+    public void testGetStoreByIdNotFound() {
         Long storeId = 999999L;
         ResponseEntity<String> response = getJSONResponse(template, String.format(REQUEST_URI, basePath()) + storeId, null, HttpMethod.GET);
         assertEquals("HTTP Status code is incorrect", HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -87,7 +87,7 @@ public class TestStoreController extends AbstractIntegrationTest {
 
     @Test
     @FlywayTest
-    public void getStoreByIdSuccess() {
+    public void testGetStoreByIdSuccess() {
         Long storeId = createStore(successRequest);
         Store store = getStore(storeId);
         assertNotNull("Store shouldn't be null", store);
@@ -95,7 +95,7 @@ public class TestStoreController extends AbstractIntegrationTest {
 
     @Test
     @FlywayTest
-    public void getStores() {
+    public void testGetStores() {
         Long firstStoreId = createStore(successRequest);
         Long secondStoreId = createStore(successRequest);
         try {
