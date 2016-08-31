@@ -3,7 +3,6 @@ package com.tenx.ms.retail.stock.rest.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -15,13 +14,10 @@ public class Stock {
     @ApiModelProperty(value = "Store Id", required = true)
     private Long storeId;
 
-    @ApiModelProperty(value = "Total count in stock", required = true)
-    @Min(value = 0)
     @NotNull
+    @Min(value = 0)
+    @ApiModelProperty(value = "Total count in stock", required = true)
     private Long count;
-
-    public Stock() {
-    }
 
     public Long getProductId() {
         return productId;

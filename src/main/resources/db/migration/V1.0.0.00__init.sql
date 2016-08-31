@@ -19,10 +19,37 @@ CREATE TABLE product (
     AUTO_INCREMENT = 1;
 
 CREATE TABLE stock (
-    stock_id   BIGINT  NOT NULL AUTO_INCREMENT,
+    stock_id BIGINT NOT NULL AUTO_INCREMENT,
     product_id BIGINT NOT NULL,
     stock_count BIGINT NOT NULL,
     PRIMARY KEY (stock_id),
+    FOREIGN KEY (product_id) REFERENCES product(product_id)
+)
+    ENGINE = InnoDB
+    AUTO_INCREMENT = 1;
+
+CREATE TABLE purchase_order (
+    order_id BIGINT NOT NULL AUTO_INCREMENT,
+    store_id BIGINT NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    phone VARCHAR(50) NOT NULL,
+    order_date DATETIME NOT NULL DEFAULT CURRENT_DATE(),
+    status VARCHAR(7) NOT NULL,
+    PRIMARY KEY (order_id),
+    FOREIGN KEY (store_id) REFERENCES store(store_id)
+)
+    ENGINE = InnoDB
+    AUTO_INCREMENT = 1;
+
+CREATE TABLE purchase_order_item (
+    order_item_id   BIGINT  NOT NULL AUTO_INCREMENT,
+    order_id BIGINT NOT NULL,
+    product_id BIGINT NOT NULL,
+    product_ BIGINT NOT NULL,
+    PRIMARY KEY (order_item_id),
+    FOREIGN KEY (order_id) REFERENCES purchase_order(order_id),
     FOREIGN KEY (product_id) REFERENCES product(product_id)
 )
     ENGINE = InnoDB

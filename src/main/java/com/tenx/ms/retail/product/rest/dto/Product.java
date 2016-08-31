@@ -18,26 +18,26 @@ public class Product {
     @ApiModelProperty(value = "The store ID for which the product belongs", readOnly = true)
     private Long storeId;
 
-    @ApiModelProperty(value = "The product name", required = true)
     @NotNull
+    @ApiModelProperty(value = "The product name", required = true)
     private String name;
 
-    @ApiModelProperty(value = "The product description")
     @NotNull
+    @ApiModelProperty(value = "The product description")
     private String description;
 
-    @ApiModelProperty(value = "The product stock unit")
     @NotNull
     @Pattern(regexp = "^[A-Za-z0-9]+$", message = "SKU must be alphanumeric")
     @Length.List({
             @Length(min = 5, message = "SKU must be at least 5 characters"),
             @Length(max = 10, message = "SKU must be less than 10 characters"),
     })
+    @ApiModelProperty(value = "The product stock unit")
     private String sku;
 
-    @ApiModelProperty(value = "The product price", required = true)
     @NotNull
     @DollarAmount
+    @ApiModelProperty(value = "The product price", required = true)
     private BigDecimal price;
 
     public Product() {

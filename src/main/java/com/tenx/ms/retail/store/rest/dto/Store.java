@@ -11,12 +11,9 @@ public class Store {
     @ApiModelProperty(value = "The store ID", readOnly = true)
     private Long storeId;
 
-    @ApiModelProperty(value = "The store name", required = true)
     @NotNull
+    @ApiModelProperty(value = "The store name", required = true)
     private String name;
-
-    public Store() {
-    }
 
     public Long getStoreId() {
         return storeId;

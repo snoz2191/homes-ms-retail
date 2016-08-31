@@ -2,7 +2,6 @@ package com.tenx.ms.retail.stock.domain;
 
 import com.tenx.ms.retail.product.domain.ProductEntity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,9 +29,6 @@ public class StockEntity {
     @Column(name = "stock_count")
     @NotNull
     private Long count;
-
-    public StockEntity() {
-    }
 
     public Long getStockId() {
         return stockId;

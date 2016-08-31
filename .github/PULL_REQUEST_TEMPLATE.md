@@ -1,5 +1,5 @@
 
-Any non-checked items below should have an explanation
+Any non-checked products below should have an explanation
 
 - [ ] The JIRA Ticket ID is in the branch name and PR title
 - [ ] TDD / Unit Tests have been added

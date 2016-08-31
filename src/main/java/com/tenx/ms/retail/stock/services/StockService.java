@@ -40,20 +40,20 @@ public class StockService {
             } else {
                 upsertStock = converter.convertToStockEntity(product.get(), stock);
             }
+            LOGGER.debug("Saving stock for store: {} and product: {}", storeId, productId);
             stockRepository.save(upsertStock);
         } else {
             throw new NoSuchElementException(String.format("There is no product %d for store %d", productId, storeId));
         }
     }
 
-    public Stock findStockByProduct(Long productId) {
-        ProductEntity product = productRepository.findOne(productId);
+    public Stock findStockByProduct(ProductEntity product) {
         Optional<StockEntity> stockEntity = stockRepository.findOneByProduct(product);
         if (stockEntity.isPresent()) {
             return converter.convertToStockDTO(stockEntity.get());
         } else {
             Stock stock = new Stock();
-            stock.setProductId(productId);
+            stock.setProductId(product.getProductId());
             stock.setStoreId(product.getStoreId());
             stock.setCount(0L);
             return stock;

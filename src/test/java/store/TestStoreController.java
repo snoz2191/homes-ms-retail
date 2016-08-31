@@ -62,7 +62,7 @@ public class TestStoreController extends AbstractIntegrationTest {
     public void testCreateStore() {
         Long storeId = createStore(successRequest);
         Store store = getStore(storeId);
-        assertNotNull(store);
+        assertNotNull("Store shouldn't be null", store);
         assertEquals("Store's ID does not match", storeId, store.getStoreId());
     }
 
@@ -72,7 +72,6 @@ public class TestStoreController extends AbstractIntegrationTest {
         try {
             ResponseEntity<String> response = getJSONResponse(template, String.format(REQUEST_URI, basePath()), FileUtils.readFileToString(missingNameRequest), HttpMethod.POST);
             assertEquals("HTTP Status code incorrect", HttpStatus.PRECONDITION_FAILED, response.getStatusCode());
-            ResourceCreated<Long> result = mapper.readValue(response.getBody(), new TypeReference<ResourceCreated<Long>>() {});
         } catch (IOException e) {
             fail(e.getMessage());
         }
@@ -91,7 +90,7 @@ public class TestStoreController extends AbstractIntegrationTest {
     public void getStoreByIdSuccess() {
         Long storeId = createStore(successRequest);
         Store store = getStore(storeId);
-        assertNotNull(store);
+        assertNotNull("Store shouldn't be null", store);
     }
 
     @Test
@@ -106,8 +105,8 @@ public class TestStoreController extends AbstractIntegrationTest {
             List<Store> stores = mapper.readValue(response.getBody(), new TypeReference<List<Store>>() {});
             assertNotNull("Store list shouldn't be null", stores);
             assertThat("Store count does not match", stores.size(), equalTo(2));
-            assertEquals(stores.get(0).getStoreId(), firstStoreId);
-            assertEquals(stores.get(1).getStoreId(), secondStoreId);
+            assertEquals("Store Ids does not match", stores.get(0).getStoreId(), firstStoreId);
+            assertEquals("Store Ids does not match", stores.get(1).getStoreId(), secondStoreId);
         } catch (IOException e) {
             fail(e.getMessage());
         }
