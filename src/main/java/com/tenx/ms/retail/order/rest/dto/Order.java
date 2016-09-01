@@ -5,8 +5,10 @@ import com.tenx.ms.commons.validation.constraints.PhoneNumber;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,7 +27,9 @@ public class Order {
     @ApiModelProperty(value = "Order Status", readOnly = true)
     private String status;
 
+    @Valid
     @NotNull
+    @Size(min = 1)
     @ApiModelProperty(value = "Order Items", required = true)
     private List<OrderItem> products;
 

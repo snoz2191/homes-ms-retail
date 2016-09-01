@@ -8,7 +8,6 @@ import com.tenx.ms.commons.rest.dto.ResourceCreated;
 import com.tenx.ms.commons.tests.AbstractIntegrationTest;
 import com.tenx.ms.retail.RetailServiceApp;
 import com.tenx.ms.retail.product.rest.dto.Product;
-import com.tenx.ms.retail.store.rest.dto.Store;
 import org.apache.commons.io.FileUtils;
 import org.flywaydb.test.annotation.FlywayTest;
 import org.flywaydb.test.junit.FlywayTestExecutionListener;
@@ -85,7 +84,7 @@ public class TestProductController extends AbstractIntegrationTest {
     private static final String STORE_ID = "1";
 
     @Before
-    public void createStore() {
+    public void initialSetup() {
         try {
             getJSONResponse(template, String.format(STORE_REQUEST_URI, basePath()), FileUtils.readFileToString(successStore), HttpMethod.POST);
         } catch (IOException e) {
@@ -163,13 +162,12 @@ public class TestProductController extends AbstractIntegrationTest {
         return null;
     }
 
-    private Product getProduct(Long productId) {
+    public Product getProduct(Long productId) {
         Product product = null;
         try {
             ResponseEntity<String> response = getJSONResponse(template, String.format(PRODUCT_REQUEST_URI, basePath()) + STORE_ID + "/"+ productId, null, HttpMethod.GET);
-            String received = response.getBody();
-            assertEquals(String.format("HTTP Status code incorrect %s", response.getBody()), HttpStatus.OK, response.getStatusCode());
-            product = mapper.readValue(received, Product.class);
+            assertEquals(String.format("HTTP Status code incorrect %s", response.getStatusCode()), HttpStatus.OK, response.getStatusCode());
+            product = mapper.readValue(response.getBody(), Product.class);
         } catch (IOException e) {
             fail(e.getMessage());
         }

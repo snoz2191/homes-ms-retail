@@ -9,7 +9,7 @@ import com.tenx.ms.retail.order.rest.dto.OrderItem;
 import com.tenx.ms.retail.order.rest.dto.OrderResponse;
 import com.tenx.ms.retail.order.util.OrderConverter;
 import com.tenx.ms.retail.order.util.OrderItemConverter;
-import com.tenx.ms.retail.order.util.OrderStatusEnum;
+import com.tenx.ms.retail.order.domain.enums.OrderStatusEnum;
 import com.tenx.ms.retail.product.domain.ProductEntity;
 import com.tenx.ms.retail.product.repositories.ProductRepository;
 import com.tenx.ms.retail.stock.rest.dto.Stock;

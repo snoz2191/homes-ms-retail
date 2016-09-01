@@ -47,6 +47,7 @@ public class StockService {
         }
     }
 
+    @Transactional
     public Stock findStockByProduct(ProductEntity product) {
         Optional<StockEntity> stockEntity = stockRepository.findOneByProduct(product);
         if (stockEntity.isPresent()) {

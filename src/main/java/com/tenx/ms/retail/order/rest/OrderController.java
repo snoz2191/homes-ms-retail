@@ -12,12 +12,20 @@ import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.NoSuchElementException;
 
 @Api(value = "order", description = "Retail API that contains order related endpoints")
 @RestController("orderControllerV1")
@@ -40,5 +48,12 @@ public class OrderController {
                                      @ApiParam(name = "order", value = "Order data", required = true) @RequestBody @Validated Order order) {
         order.setStoreId(storeId);
         return orderService.createOrder(order);
+    }
+
+    @ResponseStatus(value = HttpStatus.PRECONDITION_FAILED)
+    @ExceptionHandler(NoSuchElementException.class)
+    protected void handleNoSuchElementException(NoSuchElementException ex,
+                                                HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.sendError(HttpStatus.PRECONDITION_FAILED.value(), ex.getMessage());
     }
 }

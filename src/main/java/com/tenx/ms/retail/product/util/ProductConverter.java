@@ -9,9 +9,6 @@ public class ProductConverter {
     public ProductEntity convertToProductEntity(Product product) {
         ProductEntity productEntity = new ProductEntity();
         if ( product != null ) {
-            if ( product.getProductId() != null ) {
-                productEntity.setProductId(product.getProductId());
-            }
             productEntity.setStoreId(product.getStoreId());
             productEntity.setName(product.getName());
             productEntity.setDescription(product.getDescription());

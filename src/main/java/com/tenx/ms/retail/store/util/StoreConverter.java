@@ -10,9 +10,6 @@ public class StoreConverter {
         StoreEntity storeEntity = new StoreEntity();
         if ( store != null ) {
             storeEntity.setName(store.getName());
-            if ( store.getStoreId() != null ) {
-                storeEntity.setStoreId(store.getStoreId());
-            }
         }
         return  storeEntity;
     }

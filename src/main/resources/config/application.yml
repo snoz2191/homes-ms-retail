@@ -15,11 +15,20 @@ server:
   port: 9020
   contextPath: /retail
 
-
+dbhost: 127.0.0.1
+dbport: 3306
 ---
 spring:
   profiles: dev
+  cloud:
+    discovery:
+      enabled: false
   jpa:
+    show-sql: false
     hibernate:
-      ddl-auto: create
-
+      ddl-auto: validate
+  datasource:
+    url: jdbc:mysql://${dbhost}:${dbport}/retail?tinyInt1isBit=false&userSSL=false&createDatabaseIfNotExist=true
+    username: root
+    password: 12345678
+    driver-class-name: com.mysql.jdbc.Driver

@@ -22,6 +22,9 @@ public class OrderResponse {
     @ApiModelProperty(value = "Backdorder Items", required = true)
     private List<OrderItem> backorderedItems;
 
+    public OrderResponse() {
+    }
+
     public OrderResponse(Long orderId, String status, List<OrderItem> backorderedItems) {
         this.orderId = orderId;
         this.status = status;

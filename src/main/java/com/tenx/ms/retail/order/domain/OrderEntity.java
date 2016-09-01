@@ -21,7 +21,7 @@ public class OrderEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "order_id")
+    @Column(name = "order_id", nullable = false)
     private Long orderId;
 
     @ManyToOne(targetEntity = StoreEntity.class)

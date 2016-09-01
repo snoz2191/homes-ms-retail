@@ -18,14 +18,7 @@ public class OrderConverter {
             orderEntity.setLastName(order.getLastName());
             orderEntity.setEmail(order.getEmail());
             orderEntity.setPhone(order.getPhone());
-            if ( order.getStatus() != null ) {
-                orderEntity.setStatus(order.getStatus());
-            }
-            if ( order.getOrderDate() != null ) {
-                orderEntity.setOrderDate(order.getOrderDate());
-            } else {
-                orderEntity.setOrderDate(LocalDateTime.now());
-            }
+            orderEntity.setOrderDate(LocalDateTime.now());
         }
         return orderEntity;
     }

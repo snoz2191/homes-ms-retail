@@ -4,6 +4,7 @@ import com.tenx.ms.retail.product.domain.ProductEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,25 +18,21 @@ import javax.validation.constraints.NotNull;
 public class StockEntity {
 
     @Id
-    @Column(name = "stock_id")
+    @Column(name = "stock_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long stockId;
 
-    @OneToOne(targetEntity = ProductEntity.class)
+    @OneToOne(targetEntity = ProductEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false, unique = true)
     @NotNull
     private ProductEntity product;
 
-    @Column(name = "stock_count")
+    @Column(name = "stock_count", nullable = false)
     @NotNull
     private Long count;
 
     public Long getStockId() {
         return stockId;
-    }
-
-    public void setStockId(Long stockId) {
-        this.stockId = stockId;
     }
 
     public ProductEntity getProduct() {

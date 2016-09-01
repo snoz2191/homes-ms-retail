@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -19,24 +20,24 @@ public class ProductEntity {
     @Column(name = "product_id")
     private Long productId;
 
-    @NotNull
-    @Column(name = "store_id")
+    @Column(name = "store_id", nullable = false)
     private Long storeId;
 
     @NotNull
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     @NotNull
-    @Column(name = "description")
+    @Lob
+    @Column(name = "description", nullable = false)
     private String description;
 
     @NotNull
-    @Column(name = "sku", length = 10)
+    @Column(name = "sku", length = 10, nullable = false)
     private String sku;
 
     @NotNull
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private BigDecimal price;
 
     public Long getProductId() {
