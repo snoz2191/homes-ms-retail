@@ -1,5 +1,6 @@
 package com.tenx.ms.retail.order.rest.dto;
 
+import com.tenx.ms.retail.order.domain.enums.OrderStatusEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.avro.reflect.Nullable;
@@ -7,7 +8,7 @@ import org.apache.avro.reflect.Nullable;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@ApiModel("OrderResponse")
+@ApiModel("Order Response")
 public class OrderResponse {
 
     @NotNull
@@ -15,17 +16,17 @@ public class OrderResponse {
     private Long orderId;
 
     @NotNull
-    @ApiModelProperty(value = "Order Status", readOnly = true)
-    private String status;
+    @ApiModelProperty(value = "Order Status", readOnly = true, dataType = "string")
+    private OrderStatusEnum status;
 
     @Nullable
-    @ApiModelProperty(value = "Backdorder Items", required = true)
+    @ApiModelProperty(value = "Backdordered Items", required = true)
     private List<OrderItem> backorderedItems;
 
     public OrderResponse() {
     }
 
-    public OrderResponse(Long orderId, String status, List<OrderItem> backorderedItems) {
+    public OrderResponse(Long orderId, OrderStatusEnum status, List<OrderItem> backorderedItems) {
         this.orderId = orderId;
         this.status = status;
         this.backorderedItems = backorderedItems;
@@ -39,11 +40,11 @@ public class OrderResponse {
         this.orderId = orderId;
     }
 
-    public String getStatus() {
+    public OrderStatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(OrderStatusEnum status) {
         this.status = status;
     }
 

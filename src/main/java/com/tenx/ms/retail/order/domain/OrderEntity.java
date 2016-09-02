@@ -1,5 +1,6 @@
 package com.tenx.ms.retail.order.domain;
 
+import com.tenx.ms.retail.order.domain.enums.OrderStatusEnum;
 import com.tenx.ms.retail.store.domain.StoreEntity;
 
 import javax.persistence.CascadeType;
@@ -41,7 +42,7 @@ public class OrderEntity {
     private String phone;
 
     @Column(name = "status", nullable = false)
-    private String status;
+    private OrderStatusEnum status;
 
     @Column(name = "order_date", nullable = false)
     private LocalDateTime orderDate;
@@ -97,11 +98,11 @@ public class OrderEntity {
         this.phone = phone;
     }
 
-    public String getStatus() {
+    public OrderStatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(OrderStatusEnum status) {
         this.status = status;
     }
 

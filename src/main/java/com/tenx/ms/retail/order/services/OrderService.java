@@ -2,20 +2,20 @@ package com.tenx.ms.retail.order.services;
 
 import com.tenx.ms.retail.order.domain.OrderEntity;
 import com.tenx.ms.retail.order.domain.OrderItemEntity;
-import com.tenx.ms.retail.order.repositories.OrderItemRepository;
-import com.tenx.ms.retail.order.repositories.OrderRepository;
+import com.tenx.ms.retail.order.repository.OrderItemRepository;
+import com.tenx.ms.retail.order.repository.OrderRepository;
 import com.tenx.ms.retail.order.rest.dto.Order;
 import com.tenx.ms.retail.order.rest.dto.OrderItem;
 import com.tenx.ms.retail.order.rest.dto.OrderResponse;
-import com.tenx.ms.retail.order.util.OrderConverter;
-import com.tenx.ms.retail.order.util.OrderItemConverter;
+import com.tenx.ms.retail.order.function.OrderConverter;
+import com.tenx.ms.retail.order.function.OrderItemConverter;
 import com.tenx.ms.retail.order.domain.enums.OrderStatusEnum;
 import com.tenx.ms.retail.product.domain.ProductEntity;
-import com.tenx.ms.retail.product.repositories.ProductRepository;
+import com.tenx.ms.retail.product.repository.ProductRepository;
 import com.tenx.ms.retail.stock.rest.dto.Stock;
 import com.tenx.ms.retail.stock.services.StockService;
 import com.tenx.ms.retail.store.domain.StoreEntity;
-import com.tenx.ms.retail.store.repositories.StoreRepository;
+import com.tenx.ms.retail.store.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,8 +57,8 @@ public class OrderService {
             throw new NoSuchElementException(String.format("Store with id %d was not found", order.getStoreId()));
         }
 
-        OrderEntity orderEntity = orderConverter.convertToOrderEntity(order, optionalStore.get());
-        orderEntity.setStatus(OrderStatusEnum.ORDERED.toString());
+        OrderEntity orderEntity = orderConverter.convertToOrderEntity.apply(order, optionalStore.get());
+        orderEntity.setStatus(OrderStatusEnum.ORDERED);
 
         List<OrderItem> backorderedItems = new ArrayList<>();
 
@@ -78,7 +78,7 @@ public class OrderService {
         }
 
         OrderEntity result = orderRepository.save(orderEntity);
-        List<OrderItemEntity> items = order.getProducts().stream().map(item -> orderItemConverter.convertToOrderItemEntity(result, item)).collect(Collectors.toList());
+        List<OrderItemEntity> items = order.getProducts().stream().map(item -> orderItemConverter.convertToOrderItemEntity.apply(result, item)).collect(Collectors.toList());
         orderItemRepository.save(items);
         return new OrderResponse(result.getOrderId(), result.getStatus(), backorderedItems);
     }

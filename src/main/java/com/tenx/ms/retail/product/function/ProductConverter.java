@@ -1,12 +1,14 @@
-package com.tenx.ms.retail.product.util;
+package com.tenx.ms.retail.product.function;
 
 import com.tenx.ms.retail.product.domain.ProductEntity;
 import com.tenx.ms.retail.product.rest.dto.Product;
 import org.springframework.stereotype.Component;
 
+import java.util.function.Function;
+
 @Component
 public class ProductConverter {
-    public ProductEntity convertToProductEntity(Product product) {
+    public Function<Product, ProductEntity> convertToProductEntity = (Product product) -> {
         ProductEntity productEntity = new ProductEntity();
         if ( product != null ) {
             productEntity.setStoreId(product.getStoreId());
@@ -16,9 +18,9 @@ public class ProductConverter {
             productEntity.setPrice(product.getPrice());
         }
         return  productEntity;
-    }
+    };
 
-    public Product convertToProductDTO(ProductEntity productEntity) {
+    public Function<ProductEntity, Product> convertToProductDTO = (ProductEntity productEntity) -> {
         Product product = new Product();
         if ( productEntity != null ) {
             product.setProductId(productEntity.getProductId());
@@ -29,5 +31,5 @@ public class ProductConverter {
             product.setPrice(productEntity.getPrice());
         }
         return product;
-    }
+    };
 }

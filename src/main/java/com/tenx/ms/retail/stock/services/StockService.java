@@ -1,11 +1,11 @@
 package com.tenx.ms.retail.stock.services;
 
 import com.tenx.ms.retail.product.domain.ProductEntity;
-import com.tenx.ms.retail.product.repositories.ProductRepository;
+import com.tenx.ms.retail.product.repository.ProductRepository;
 import com.tenx.ms.retail.stock.domain.StockEntity;
-import com.tenx.ms.retail.stock.repositories.StockRepository;
+import com.tenx.ms.retail.stock.repository.StockRepository;
 import com.tenx.ms.retail.stock.rest.dto.Stock;
-import com.tenx.ms.retail.stock.util.StockConverter;
+import com.tenx.ms.retail.stock.function.StockConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class StockService {
                 upsertStock = stockEntity.get();
                 upsertStock.setCount(stock.getCount());
             } else {
-                upsertStock = converter.convertToStockEntity(product.get(), stock);
+                upsertStock = converter.convertToStockEntity.apply(product.get(), stock);
             }
             LOGGER.debug("Saving stock for store: {} and product: {}", storeId, productId);
             stockRepository.save(upsertStock);
@@ -51,7 +51,7 @@ public class StockService {
     public Stock findStockByProduct(ProductEntity product) {
         Optional<StockEntity> stockEntity = stockRepository.findOneByProduct(product);
         if (stockEntity.isPresent()) {
-            return converter.convertToStockDTO(stockEntity.get());
+            return converter.convertToStockDTO.apply(stockEntity.get());
         } else {
             Stock stock = new Stock();
             stock.setProductId(product.getProductId());

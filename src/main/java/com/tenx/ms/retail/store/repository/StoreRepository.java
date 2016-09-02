@@ -1,4 +1,4 @@
-package com.tenx.ms.retail.store.repositories;
+package com.tenx.ms.retail.store.repository;
 
 import com.tenx.ms.retail.store.domain.StoreEntity;
 import org.springframework.data.domain.Page;

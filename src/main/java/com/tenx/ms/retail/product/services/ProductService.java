@@ -1,9 +1,9 @@
 package com.tenx.ms.retail.product.services;
 
 import com.tenx.ms.retail.product.domain.ProductEntity;
-import com.tenx.ms.retail.product.repositories.ProductRepository;
+import com.tenx.ms.retail.product.repository.ProductRepository;
 import com.tenx.ms.retail.product.rest.dto.Product;
-import com.tenx.ms.retail.product.util.ProductConverter;
+import com.tenx.ms.retail.product.function.ProductConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class ProductService {
 
     @Transactional
     public Long createProduct(Product product) {
-        ProductEntity productEntity = converter.convertToProductEntity(product);
+        ProductEntity productEntity = converter.convertToProductEntity.apply(product);
         LOGGER.debug("Saving product {} into database", productEntity);
         productRepository.save(productEntity);
         return productEntity.getProductId();
@@ -35,11 +35,11 @@ public class ProductService {
 
     public Optional<Product> getProductById(Long storeId, Long productId) {
         LOGGER.debug("Trying to retrieve product {} from store {}", productId, storeId);
-        return productRepository.findOneByStoreIdAndProductId(storeId, productId).map(product -> converter.convertToProductDTO(product));
+        return productRepository.findOneByStoreIdAndProductId(storeId, productId).map(converter.convertToProductDTO);
     }
 
     public List<Product> getAllProducts(Long storeId, Pageable pageable) {
-        return productRepository.findAllByStoreId(storeId, pageable).getContent().stream().map(product -> converter.convertToProductDTO(product)).collect(Collectors.toList());
+        return productRepository.findAllByStoreId(storeId, pageable).getContent().stream().map(converter.convertToProductDTO).collect(Collectors.toList());
     }
 
 }

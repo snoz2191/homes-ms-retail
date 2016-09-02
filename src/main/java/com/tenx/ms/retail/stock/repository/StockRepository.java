@@ -1,4 +1,4 @@
-package com.tenx.ms.retail.stock.repositories;
+package com.tenx.ms.retail.stock.repository;
 
 import com.tenx.ms.retail.product.domain.ProductEntity;
 import com.tenx.ms.retail.stock.domain.StockEntity;

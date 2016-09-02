@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
 
-@ApiModel("OrderItem")
+@ApiModel(value = "Order Item Description")
 public class OrderItem {
 
     @NotNull

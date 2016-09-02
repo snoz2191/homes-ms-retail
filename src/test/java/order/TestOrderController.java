@@ -163,7 +163,7 @@ public class TestOrderController extends AbstractIntegrationTest {
             ResponseEntity<String> response = getJSONResponse(template, String.format(ORDER_REQUEST_URI, basePath()) + STORE_ID, FileUtils.readFileToString(successOrder), HttpMethod.POST);
             assertEquals("HTTP Status code incorrect", HttpStatus.OK, response.getStatusCode());
             OrderResponse orderResponse = mapper.readValue(response.getBody(), OrderResponse.class);
-            assertEquals("Order Status should be ORDERED", OrderStatusEnum.ORDERED.toString(), orderResponse.getStatus());
+            assertEquals("Order Status should be ORDERED", OrderStatusEnum.ORDERED, orderResponse.getStatus());
             assertThat("Backordered Items should be empty", orderResponse.getBackorderedItems().size(), is(0));
         } catch (IOException e) {
             fail(e.getMessage());
@@ -177,7 +177,7 @@ public class TestOrderController extends AbstractIntegrationTest {
             ResponseEntity<String> response = getJSONResponse(template, String.format(ORDER_REQUEST_URI, basePath()) + STORE_ID, FileUtils.readFileToString(successOrderBackordered), HttpMethod.POST);
             assertEquals("HTTP Status code incorrect", HttpStatus.OK, response.getStatusCode());
             OrderResponse orderResponse = mapper.readValue(response.getBody(), OrderResponse.class);
-            assertEquals("Order Status should be ORDERED", OrderStatusEnum.ORDERED.toString(), orderResponse.getStatus());
+            assertEquals("Order Status should be ORDERED", OrderStatusEnum.ORDERED, orderResponse.getStatus());
             assertThat("Backordered Items should not be empty", orderResponse.getBackorderedItems().size(), is(1));
         } catch (IOException e) {
             fail(e.getMessage());

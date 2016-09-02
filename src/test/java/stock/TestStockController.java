@@ -7,7 +7,7 @@ import com.tenx.ms.commons.tests.AbstractIntegrationTest;
 import com.tenx.ms.retail.RetailServiceApp;
 import com.tenx.ms.retail.product.domain.ProductEntity;
 import com.tenx.ms.retail.product.rest.dto.Product;
-import com.tenx.ms.retail.product.util.ProductConverter;
+import com.tenx.ms.retail.product.function.ProductConverter;
 import com.tenx.ms.retail.stock.rest.dto.Stock;
 import com.tenx.ms.retail.stock.services.StockService;
 import org.apache.commons.io.FileUtils;
@@ -83,7 +83,7 @@ public class TestStockController extends AbstractIntegrationTest {
             getJSONResponse(template, String.format(STORE_REQUEST_URI, basePath()), FileUtils.readFileToString(successStore), HttpMethod.POST);
             getJSONResponse(template, String.format(PRODUCT_REQUEST_URI, basePath()) + STORE_ID, FileUtils.readFileToString(successProduct), HttpMethod.POST);
             ResponseEntity<String> response = getJSONResponse(template, String.format(PRODUCT_REQUEST_URI, basePath()) + STORE_ID + "/"+ PRODUCT_ID, null, HttpMethod.GET);
-            testProduct = productConverter.convertToProductEntity(mapper.readValue(response.getBody(), Product.class));
+            testProduct = productConverter.convertToProductEntity.apply(mapper.readValue(response.getBody(), Product.class));
             testProduct.setProductId(Long.parseLong(PRODUCT_ID));
         } catch (IOException e) {
             fail("Couldn't create initial data");

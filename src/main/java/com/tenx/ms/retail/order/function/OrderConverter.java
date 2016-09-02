@@ -1,4 +1,4 @@
-package com.tenx.ms.retail.order.util;
+package com.tenx.ms.retail.order.function;
 
 import com.tenx.ms.retail.order.domain.OrderEntity;
 import com.tenx.ms.retail.order.rest.dto.Order;
@@ -6,11 +6,12 @@ import com.tenx.ms.retail.store.domain.StoreEntity;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.function.BiFunction;
 
 @Component
 public class OrderConverter {
 
-    public OrderEntity convertToOrderEntity (Order order, StoreEntity storeEntity) {
+    public BiFunction<Order, StoreEntity, OrderEntity> convertToOrderEntity = (Order order, StoreEntity storeEntity) -> {
         OrderEntity orderEntity = new OrderEntity();
         if ( order != null ) {
             orderEntity.setStore(storeEntity);
@@ -21,5 +22,5 @@ public class OrderConverter {
             orderEntity.setOrderDate(LocalDateTime.now());
         }
         return orderEntity;
-    }
+    };
 }

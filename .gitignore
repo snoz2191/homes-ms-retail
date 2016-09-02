@@ -55,3 +55,9 @@ local.properties
 *.orig
 
 
+######################
+# Hidden Files
+######################
+.github/**
+.deployment/**
+

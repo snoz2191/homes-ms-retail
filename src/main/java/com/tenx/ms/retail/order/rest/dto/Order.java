@@ -2,8 +2,10 @@ package com.tenx.ms.retail.order.rest.dto;
 
 import com.tenx.ms.commons.validation.constraints.Email;
 import com.tenx.ms.commons.validation.constraints.PhoneNumber;
+import com.tenx.ms.retail.order.domain.enums.OrderStatusEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -24,8 +26,9 @@ public class Order {
     @ApiModelProperty(value = "Order Date", readOnly = true)
     private LocalDateTime orderDate;
 
-    @ApiModelProperty(value = "Order Status", readOnly = true)
-    private String status;
+    @Valid
+    @ApiModelProperty(value = "Order Status", readOnly = true, dataType = "string")
+    private OrderStatusEnum status;
 
     @Valid
     @NotNull
@@ -33,12 +36,12 @@ public class Order {
     @ApiModelProperty(value = "Order Items", required = true)
     private List<OrderItem> products;
 
-    @NotNull
+    @NotBlank
     @Pattern(regexp = "^[A-Za-z]+$", message = "First name must contain only alpha characters")
     @ApiModelProperty(value = "Client's First Name", required = true)
     private String firstName;
 
-    @NotNull
+    @NotBlank
     @Pattern(regexp = "^[A-Za-z]+$", message = "Last name must contain only alpha characters")
     @ApiModelProperty(value = "Client's Last Name", required = true)
     private String lastName;
@@ -77,11 +80,11 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public String getStatus() {
+    public OrderStatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(OrderStatusEnum status) {
         this.status = status;
     }
 
