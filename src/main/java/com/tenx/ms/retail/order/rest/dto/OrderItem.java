@@ -14,7 +14,7 @@ public class OrderItem {
 
     @NotNull
     @ApiModelProperty(value = "Ordered Product Quantity", required = true)
-    private Long count;
+    private Integer count;
 
     public Long getProductId() {
         return productId;
@@ -24,11 +24,11 @@ public class OrderItem {
         this.productId = productId;
     }
 
-    public Long getCount() {
+    public Integer getCount() {
         return count;
     }
 
-    public void setCount(Long count) {
+    public void setCount(Integer count) {
         this.count = count;
     }
 }

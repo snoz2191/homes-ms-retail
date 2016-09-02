@@ -26,7 +26,7 @@ public class OrderItemEntity {
     private Long productId;
 
     @Column(name = "product_count", nullable = false)
-    private Long count;
+    private Integer count;
 
     public Long getOrderItemId() {
         return orderItemId;
@@ -52,11 +52,11 @@ public class OrderItemEntity {
         this.productId = productId;
     }
 
-    public Long getCount() {
+    public Integer getCount() {
         return count;
     }
 
-    public void setCount(Long count) {
+    public void setCount(Integer count) {
         this.count = count;
     }
 }

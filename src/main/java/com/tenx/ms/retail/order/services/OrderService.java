@@ -58,7 +58,7 @@ public class OrderService {
         }
 
         OrderEntity orderEntity = orderConverter.convertToOrderEntity.apply(order, optionalStore.get());
-        orderEntity.setStatus(OrderStatusEnum.ORDERED);
+        orderEntity.setStatus(OrderStatusEnum.ORDERED.toString());
 
         List<OrderItem> backorderedItems = new ArrayList<>();
 
@@ -80,6 +80,6 @@ public class OrderService {
         OrderEntity result = orderRepository.save(orderEntity);
         List<OrderItemEntity> items = order.getProducts().stream().map(item -> orderItemConverter.convertToOrderItemEntity.apply(result, item)).collect(Collectors.toList());
         orderItemRepository.save(items);
-        return new OrderResponse(result.getOrderId(), result.getStatus(), backorderedItems);
+        return new OrderResponse(result.getOrderId(), OrderStatusEnum.valueOf(result.getStatus()), backorderedItems);
     }
 }
