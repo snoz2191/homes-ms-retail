@@ -39,7 +39,6 @@ public class OrderController {
     @ApiOperation(value = "Creates a new order")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Order successfully created"),
-            @ApiResponse(code = 404, message = "Store or client can't be found by id"),
             @ApiResponse(code = 412, message = "Validation failure"),
             @ApiResponse(code = 500, message = "Internal server error")}
     )
